@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.cplaiz</groupId>
-    <artifactId>activecraft-dashboard</artifactId>
+    <artifactId>activecraftdashboard</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
@@ -114,11 +114,6 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>mavenCentral</id>
-            <name>mavenCentral</name>
-            <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
 

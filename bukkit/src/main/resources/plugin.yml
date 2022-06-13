@@ -1,6 +1,6 @@
 name: ActiveCraft-Dashboard
 version: '${project.version}'
-main: ActiveCraftDashboard
+main: de.cplaiz.activecraftdashboard.ActiveCraftDashboard
 api-version: 1.17
 authors: [ CPlaiz ]
 depend: [ ActiveCraft-Core ]
