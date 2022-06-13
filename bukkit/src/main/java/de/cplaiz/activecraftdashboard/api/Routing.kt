@@ -1,5 +1,6 @@
 package de.cplaiz.activecraftdashboard.api
 
+import de.cplaiz.activecraftdashboard.monitor.HardwareMonitor
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -9,7 +10,7 @@ import io.ktor.server.request.*
 fun Application.configureRouting() {
     routing {
         get("/") {
-            call.respondText("Hello World!")
+            call.respondText(HardwareMonitor.getProcessCpuLoad().toString())
         }
     }
     routing {
