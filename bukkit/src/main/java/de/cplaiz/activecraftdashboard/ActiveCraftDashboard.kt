@@ -19,6 +19,7 @@ class ActiveCraftDashboard : ActiveCraftPlugin() {
     }
 
     override fun onEnable() {
+        checkForUpdate()
         servMan.startServer()
         Bukkit.getConsoleSender()
     }
