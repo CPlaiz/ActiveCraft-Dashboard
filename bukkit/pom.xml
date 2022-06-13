@@ -115,6 +115,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>mavenCentral</id>
+            <name>mavenCentral</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -123,6 +128,8 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
         </dependency>
+
+        <!-- Minecraft -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -147,6 +154,8 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/Server/plugins/ActiveCraft-Core.jar</systemPath>
         </dependency>
+
+        <!-- ktor -->
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-core-jvm</artifactId>
@@ -167,6 +176,23 @@
             <artifactId>ktor-server-tests-jvm</artifactId>
             <version>${ktor_version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- SQL -->
+        <dependency>
+            <groupId>org.jetbrains.exposed</groupId>
+            <artifactId>exposed-core</artifactId>
+            <version>0.38.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.exposed</groupId>
+            <artifactId>exposed-dao</artifactId>
+            <version>0.38.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.exposed</groupId>
+            <artifactId>exposed-jdbc</artifactId>
+            <version>0.38.2</version>
         </dependency>
     </dependencies>
 </project>
