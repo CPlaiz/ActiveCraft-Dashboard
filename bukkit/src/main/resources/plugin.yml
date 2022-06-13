@@ -1,0 +1,10 @@
+name: ActiveCraft-Dashboard
+version: '${project.version}'
+main: ActiveCraftDashboard
+api-version: 1.17
+authors: [ CPlaiz ]
+depend: [ ActiveCraft-Core ]
+description: An elegant way to manage your server remotely.
+libraries:
+  - io.ktor:ktor-server-netty-jvm:2.0.2
+  - io.ktor:ktor-server-core-jvm:2.0.2
