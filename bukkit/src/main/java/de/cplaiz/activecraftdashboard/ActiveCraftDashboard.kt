@@ -3,36 +3,42 @@ package de.cplaiz.activecraftdashboard
 import de.cplaiz.activecraftdashboard.api.ServerManager
 import de.cplaiz.activecraftdashboard.utils.config.MainConfig
 import de.silencio.activecraftcore.ActiveCraftPlugin
+import de.silencio.activecraftcore.utils.config.ConfigManager
 import org.bukkit.Bukkit
+import kotlin.reflect.full.companionObject
 
-class ActiveCraftDashboard : ActiveCraftPlugin() {
+class ActiveCraftDashboard() : ActiveCraftPlugin() {
 
-    private val servMan: ServerManager = ServerManager()
-    val mainConfig: MainConfig = MainConfig()
+    private var servMan: ServerManager? = null
+    var mainConfig: MainConfig? = null
 
     companion object {
         lateinit var instance: ActiveCraftDashboard
+            private set
     }
 
     init {
         instance = this
     }
 
-    override fun onEnable() {
+    override fun onPluginEnabled() {
         checkForUpdate()
-        servMan.startServer()
+        servMan = ServerManager()
+        servMan!!.startServer()
         Bukkit.getConsoleSender()
     }
 
-    override fun onDisable() {
-        servMan.stopServer()
+    override fun onPluginDisabled() {
+        servMan!!.stopServer()
     }
 
     override fun registerConfigs() {
-        TODO("Not yet implemented")
+        saveDefaultConfig()
+        mainConfig = MainConfig()
+        ConfigManager.registerConfig(this, mainConfig)
     }
 
     override fun register() {
-        TODO("Not yet implemented")
+
     }
 }
