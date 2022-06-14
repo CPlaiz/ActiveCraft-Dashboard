@@ -5,7 +5,6 @@ import de.cplaiz.activecraftdashboard.utils.config.MainConfig
 import de.silencio.activecraftcore.ActiveCraftPlugin
 import de.silencio.activecraftcore.utils.config.ConfigManager
 import org.bukkit.Bukkit
-import kotlin.reflect.full.companionObject
 
 class ActiveCraftDashboard() : ActiveCraftPlugin() {
 

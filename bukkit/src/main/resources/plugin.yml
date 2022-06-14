@@ -8,3 +8,5 @@ description: An elegant way to manage your server remotely.
 libraries:
   - io.ktor:ktor-server-netty-jvm:2.0.2
   - io.ktor:ktor-server-core-jvm:2.0.2
+  - io.ktor:ktor-server-content-negotiation-jvm:2.0.2
+  - io.ktor:ktor-serialization-kotlinx-json-jvm:2.0.2

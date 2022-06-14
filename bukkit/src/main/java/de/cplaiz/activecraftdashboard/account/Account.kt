@@ -9,4 +9,5 @@ object Account: Table() {
     val tokenHash = varchar("token", 64)
     //val permissions = varchar()
 
+
 }

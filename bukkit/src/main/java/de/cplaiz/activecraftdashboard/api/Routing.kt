@@ -1,17 +1,14 @@
 package de.cplaiz.activecraftdashboard.api
 
+import de.cplaiz.activecraftdashboard.monitor.GameMonitor
 import de.cplaiz.activecraftdashboard.monitor.HardwareMonitor
-import io.ktor.server.routing.*
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
+import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     routing {
-        get("/") {
-            call.respondText(HardwareMonitor.getProcessCpuLoad().toString())
-        }
+        HardwareMonitor.route(this)
+        GameMonitor.route(this)
     }
     routing {
 
