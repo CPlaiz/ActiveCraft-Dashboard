@@ -1,8 +1,8 @@
 package de.cplaiz.activecraftdashboard.utils.config
 
 import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
-import de.silencio.activecraftcore.utils.config.ActiveCraftConfig
-import de.silencio.activecraftcore.utils.config.FileConfig
+import de.cplaiz.activecraftcore.utils.config.ActiveCraftConfig
+import de.cplaiz.activecraftcore.utils.config.FileConfig
 
 class MainConfig : ActiveCraftConfig(FileConfig("config.yml", ActiveCraftDashboard.instance)) {
 

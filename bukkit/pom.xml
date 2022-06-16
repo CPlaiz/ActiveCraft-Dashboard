@@ -118,6 +118,11 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
         <!-- Minecraft -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
@@ -137,7 +142,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>de.silencio</groupId>
+            <groupId>de.cplaiz</groupId>
             <artifactId>activecraftcore</artifactId>
             <version>2.0.0</version>
             <scope>system</scope>

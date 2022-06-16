@@ -1,7 +1,8 @@
 package de.cplaiz.activecraftdashboard.monitor
 
-import de.silencio.activecraftcore.ActiveCraftCore
-import de.silencio.activecraftcore.playermanagement.Profile
+import de.cplaiz.activecraftdashboard.utils.SerializationUtils
+import de.cplaiz.activecraftcore.ActiveCraftCore
+import de.cplaiz.activecraftcore.playermanagement.Profile
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -11,7 +12,7 @@ object GameMonitor : RoutedMonitor("/game") {
 
     override fun Route.handleReq() {
         get("/profiles") {
-            call.respond(getProfiles())
+            call.respond(SerializationUtils.toJson(getProfiles()))
         }
     }
 
@@ -38,5 +39,4 @@ object GameMonitor : RoutedMonitor("/game") {
     fun getOnlineProfiles() : Map<String, Profile> {
         return getProfiles().filter { it.value.player != null }
     }
-
 }
