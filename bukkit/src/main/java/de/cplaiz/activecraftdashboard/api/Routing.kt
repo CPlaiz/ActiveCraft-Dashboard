@@ -10,7 +10,4 @@ fun Application.configureRouting() {
         HardwareMonitor.route(this)
         GameMonitor.route(this)
     }
-    routing {
-
-    }
 }

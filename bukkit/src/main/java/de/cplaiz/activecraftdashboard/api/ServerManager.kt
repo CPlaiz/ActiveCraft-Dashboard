@@ -21,7 +21,9 @@ class ServerManager {
     }
 
     fun startServer() {
-        server.start(wait = true)
+        Thread {
+            server.start(wait = true)
+        }.start()
     }
 
     fun stopServer() {
