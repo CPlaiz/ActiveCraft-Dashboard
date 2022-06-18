@@ -24,6 +24,22 @@ object GameMonitor : RoutedMonitor("/game") {
         get("/profiles") {
             call.respondText("[${getProfiles().map { it.value.name }.joinToString { it }}]", ContentType.Application.Json)
         }
+        get("/profiles/online") {
+            call.respondText("[${getOnlineProfiles().map { it.value.name }.joinToString { it }}]", ContentType.Application.Json)
+        }
+        get("/tps") {
+            call.respondText(getTPS().toString())
+        }
+        get("/players") {
+            call.respondText(getOnlinePlayers().toString(), ContentType.Application.Json)
+        }
+        get("/max-player-count") {
+            call.respondText(getMaxPlayerCount().toString())
+        }
+        get("/player-count") {
+            call.respondText(getPlayerCount().toString())
+        }
+
     }
 
     fun getPlayerCount(): Int {
