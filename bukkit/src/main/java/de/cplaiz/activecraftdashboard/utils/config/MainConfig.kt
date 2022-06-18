@@ -16,6 +16,8 @@ class MainConfig : ActiveCraftConfig(FileConfig("config.yml", ActiveCraftDashboa
         private set
     lateinit var certAlias: String
         private set
+    var useHttps: Boolean = false
+        private set
 
     override fun load() {
         port = fileConfig.getInt("port")
@@ -23,5 +25,6 @@ class MainConfig : ActiveCraftConfig(FileConfig("config.yml", ActiveCraftDashboa
         certPassword = fileConfig.getString("certificate-password") ?: ""
         certPath = fileConfig.getString("certificate-path") ?: "cert.jks"
         certAlias = fileConfig.getString("certificate-alias") ?: "certificate"
+        useHttps = fileConfig.getBoolean("use-https")
     }
 }

@@ -13,26 +13,34 @@ class ServerManager {
 
     private val mainConfig = ActiveCraftDashboard.instance.mainConfig
     private val pw = mainConfig.certPassword.toCharArray()
-    private val keyStoreFile = File("${ActiveCraftDashboard.instance.dataFolder}${File.separator}${mainConfig.certPath}")
+    private val keyStoreFile =
+        File("${ActiveCraftDashboard.instance.dataFolder}${File.separator}${mainConfig.certPath}")
     val keystore: KeyStore = KeyStore.getInstance("pkcs12").apply {
         load(FileInputStream(keyStoreFile), pw)
     }
 
     val environment = applicationEngineEnvironment {
         log = LoggerFactory.getLogger("ktor.application")
-        sslConnector(
-            keyStore = keystore,
-            keyAlias = mainConfig.certAlias,
-            keyStorePassword = { pw },
-            privateKeyPassword = { pw }) {
-            host = mainConfig.host
-            port = mainConfig.port
-            keyStorePath = keyStoreFile
+        if (mainConfig.useHttps) {
+            sslConnector(
+                keyStore = keystore,
+                keyAlias = mainConfig.certAlias,
+                keyStorePassword = { pw },
+                privateKeyPassword = { pw }) {
+                host = mainConfig.host
+                port = mainConfig.port
+                keyStorePath = keyStoreFile
+            }
+        } else {
+            connector {
+                host = mainConfig.host
+                port = mainConfig.port
+            }
         }
         module(Application::configureRouting)
     }
 
-    private val server = embeddedServer(Netty, environment=environment)
+    private val server = embeddedServer(Netty, environment = environment)
 
     fun startServer() {
         Thread {
