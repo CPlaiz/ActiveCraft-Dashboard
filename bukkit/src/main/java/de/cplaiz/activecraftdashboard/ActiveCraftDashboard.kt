@@ -1,15 +1,15 @@
 package de.cplaiz.activecraftdashboard
 
-import de.cplaiz.activecraftdashboard.api.ServerManager
-import de.cplaiz.activecraftdashboard.utils.config.MainConfig
 import de.cplaiz.activecraftcore.ActiveCraftPlugin
 import de.cplaiz.activecraftcore.utils.config.ConfigManager
+import de.cplaiz.activecraftdashboard.api.ServerManager
+import de.cplaiz.activecraftdashboard.utils.config.MainConfig
 import org.bukkit.Bukkit
 
 class ActiveCraftDashboard() : ActiveCraftPlugin() {
 
     private var servMan: ServerManager? = null
-    var mainConfig: MainConfig? = null
+    lateinit var mainConfig: MainConfig
 
     companion object {
         lateinit var instance: ActiveCraftDashboard
