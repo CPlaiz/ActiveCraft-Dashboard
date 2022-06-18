@@ -1,1 +1,25 @@
+# How to setup https:
+# 1. go to "https://noip.com/" and register a free hostname
+# 2. go to "https://slproweb.com/products/Win32OpenSSL.html" and download the latest installer
+# 3. install the installer
+# 4. open your terminal and type "openssl req -new -nodes -keyout myserver.key -out server.csr"
+# 5. enter the asked information (country, state, city, the domain you registered in step 1)
+# 6. copy the contents of the generated "server.csr" file to your clipboard and save the "myserver.key" file to a secure location (it contains your private key which is highly sensitive data)
+# 7. go to "https://my.noip.com/my-services/ssl-certificates" and click "Add"
+# 8. choose "other" as a server and paste the contents of the "server.csr" file into the "CSR" field and submit
+# 9. wait for the mail from noip.com which will tell you that your certificate has been activated (this may take a while)
+# 10. go to "https://my.noip.com/my-services/ssl-certificates", click "Download" and choose "PEM"
+# 11. open your terminal and type "openssl pkcs12 -export -in DOWNLOADED_FILE.pem -inkey myserver.key -out certificate.p12 -name "certificate""
+# 12. choose a password
+# 13. open your terminal and type "keytool -importkeystore -srckeystore certificate.p12 -srcstoretype pkcs12 -destkeystore cert.jks"
+# 14. enter your password from step 12
+# 15. enter your password from step 12 again
+# 16. put the generated "cert.jks" file in the "plugins/ActiveCraft-Dashboard" folder on your Minecraft server
+# 17. put the password from step 12 where it says "certificate-password" in the config.yml file of the "ActiveCraft-Dashboard" plugin
+
+
 port: 8080
+host: localhost # if the server is behind NAT (e.g. a router) set this to the local IP (e.g. 192.168.2.69), if not set it to the public IP of the server
+certificate-path: cert.jks # path to the certificate file relative to the plugin folder ("plugins/ActiveCraft-Dashboard")
+certificate-password: password # the password you entered in step 12
+certificate-alias: certificate # the name you entered in step 11

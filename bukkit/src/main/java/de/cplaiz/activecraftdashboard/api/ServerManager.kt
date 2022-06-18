@@ -1,24 +1,38 @@
 package de.cplaiz.activecraftdashboard.api
 
 import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
-import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.server.plugins.contentnegotiation.*
-import kotlinx.serialization.json.Json
+import org.slf4j.LoggerFactory
+import java.io.File
+import java.io.FileInputStream
+import java.security.KeyStore
 
 class ServerManager {
 
-    private val server = embeddedServer(Netty, port = ActiveCraftDashboard.instance.mainConfig!!.port, host = "127.0.0.1") {
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-            })
-        }
-        configureRouting()
+    private val mainConfig = ActiveCraftDashboard.instance.mainConfig
+    private val pw = mainConfig.certPassword.toCharArray()
+    private val keyStoreFile = File("${ActiveCraftDashboard.instance.dataFolder}${File.separator}${mainConfig.certPath}")
+    val keystore: KeyStore = KeyStore.getInstance("pkcs12").apply {
+        load(FileInputStream(keyStoreFile), pw)
     }
+
+    val environment = applicationEngineEnvironment {
+        log = LoggerFactory.getLogger("ktor.application")
+        sslConnector(
+            keyStore = keystore,
+            keyAlias = mainConfig.certAlias,
+            keyStorePassword = { pw },
+            privateKeyPassword = { pw }) {
+            host = mainConfig.host
+            port = mainConfig.port
+            keyStorePath = keyStoreFile
+        }
+        module(Application::configureRouting)
+    }
+
+    private val server = embeddedServer(Netty, environment=environment)
 
     fun startServer() {
         Thread {

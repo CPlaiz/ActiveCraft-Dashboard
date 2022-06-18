@@ -176,7 +176,11 @@
             <artifactId>ktor-serialization-kotlinx-json-jvm</artifactId>
             <version>${ktor_version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-network-tls-certificates-jvm</artifactId>
+            <version>${ktor_version}</version>
+        </dependency>
 
         <!-- SQL -->
         <dependency>
