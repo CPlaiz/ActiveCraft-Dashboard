@@ -3,7 +3,7 @@ package de.cplaiz.activecraftdashboard
 import de.cplaiz.activecraftcore.ActiveCraftPlugin
 import de.cplaiz.activecraftcore.utils.config.ConfigManager
 import de.cplaiz.activecraftdashboard.api.ServerManager
-import de.cplaiz.activecraftdashboard.utils.config.MainConfig
+import de.cplaiz.activecraftdashboard.util.config.MainConfig
 import org.bukkit.Bukkit
 
 class ActiveCraftDashboard() : ActiveCraftPlugin() {

@@ -1,4 +1,4 @@
-package de.cplaiz.activecraftdashboard.utils
+package de.cplaiz.activecraftdashboard.util
 
 import de.cplaiz.activecraftcore.playermanagement.Profile
 import de.cplaiz.activecraftcore.utils.config.Effect

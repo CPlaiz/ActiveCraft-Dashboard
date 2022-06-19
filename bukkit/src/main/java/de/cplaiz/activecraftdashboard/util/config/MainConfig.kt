@@ -1,4 +1,4 @@
-package de.cplaiz.activecraftdashboard.utils.config
+package de.cplaiz.activecraftdashboard.util.config
 
 import de.cplaiz.activecraftcore.utils.config.ActiveCraftConfig
 import de.cplaiz.activecraftcore.utils.config.FileConfig

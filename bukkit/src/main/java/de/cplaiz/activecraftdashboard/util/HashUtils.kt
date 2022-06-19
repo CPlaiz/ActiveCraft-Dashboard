@@ -1,4 +1,4 @@
-package de.cplaiz.activecraftdashboard.utils
+package de.cplaiz.activecraftdashboard.util
 
 import java.security.MessageDigest
 
