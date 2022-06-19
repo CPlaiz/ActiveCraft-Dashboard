@@ -1,6 +1,7 @@
-package de.cplaiz.activecraftdashboard
+package de.cplaiz.activecraftdashboard.command
 
 import de.cplaiz.activecraftcore.commands.ActiveCraftCommand
+import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 
