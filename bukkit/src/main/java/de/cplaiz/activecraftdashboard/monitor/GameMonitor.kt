@@ -2,7 +2,7 @@ package de.cplaiz.activecraftdashboard.monitor
 
 import de.cplaiz.activecraftcore.ActiveCraftCore
 import de.cplaiz.activecraftcore.playermanagement.Profile
-import de.cplaiz.activecraftdashboard.utils.toJson
+import de.cplaiz.activecraftdashboard.util.toJson
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
