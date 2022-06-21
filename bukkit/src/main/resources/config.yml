@@ -18,7 +18,7 @@
 # 17. put the password from step 12 where it says "certificate-password" in the config.yml file of the "ActiveCraft-Dashboard" plugin
 
 
-use-https: true
+use-https: false
 port: 8080
 host: localhost # if the server is behind NAT (e.g. a router) set this to the local IP (e.g. 192.168.2.69), if not set it to the public IP of the server
 certificate-path: cert.jks # path to the certificate file relative to the plugin folder ("plugins/ActiveCraft-Dashboard")

@@ -12,16 +12,16 @@ import java.security.KeyStore
 class ServerManager {
 
     private val mainConfig = ActiveCraftDashboard.instance.mainConfig
-    private val pw = mainConfig.certPassword.toCharArray()
-    private val keyStoreFile =
-        File("${ActiveCraftDashboard.instance.dataFolder}${File.separator}${mainConfig.certPath}")
-    val keystore: KeyStore = KeyStore.getInstance("pkcs12").apply {
-        load(FileInputStream(keyStoreFile), pw)
-    }
 
     val environment = applicationEngineEnvironment {
         log = LoggerFactory.getLogger("ktor.application")
         if (mainConfig.useHttps) {
+            val pw = mainConfig.certPassword.toCharArray()
+            val keyStoreFile =
+                File("${ActiveCraftDashboard.instance.dataFolder}${File.separator}${mainConfig.certPath}")
+            val keystore: KeyStore = KeyStore.getInstance("pkcs12").apply {
+                load(FileInputStream(keyStoreFile), pw)
+            }
             sslConnector(
                 keyStore = keystore,
                 keyAlias = mainConfig.certAlias,
