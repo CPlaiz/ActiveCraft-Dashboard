@@ -1,5 +1,6 @@
 package de.cplaiz.activecraftdashboard.monitor
 
+import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
 import de.cplaiz.activecraftdashboard.util.ConsoleAppender
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -20,7 +21,9 @@ object ConsoleMonitor : RoutedMonitor("/console"), Listener  {
         post {
             val formParameters = call.receiveParameters()
             val message = formParameters["command"]!!
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), message)
+                Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), message)
+                })
             call.respond(HttpStatusCode.OK)
         }
         get {
