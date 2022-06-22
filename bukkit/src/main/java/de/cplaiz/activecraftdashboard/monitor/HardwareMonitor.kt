@@ -1,12 +1,13 @@
 package de.cplaiz.activecraftdashboard.monitor
 
 import com.sun.management.OperatingSystemMXBean
+import de.cplaiz.activecraftdashboard.api.Routed
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.lang.management.ManagementFactory
 
-object HardwareMonitor : RoutedMonitor("/monitor") {
+object HardwareMonitor : Routed("/monitor") {
 
     override fun Route.handleReq() {
         get("/cpu") {

@@ -1,6 +1,7 @@
 package de.cplaiz.activecraftdashboard.monitor
 
 import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
+import de.cplaiz.activecraftdashboard.api.Routed
 import de.cplaiz.activecraftdashboard.util.ConsoleAppender
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -12,7 +13,7 @@ import org.bukkit.event.Listener
 import java.util.*
 
 
-object ConsoleMonitor : RoutedMonitor("/console"), Listener  {
+object ConsoleMonitor : Routed("/console"), Listener  {
 
     val pendingConsoleContent: Deque<String> = LinkedList()
     val consoleAppender: ConsoleAppender = ConsoleAppender()

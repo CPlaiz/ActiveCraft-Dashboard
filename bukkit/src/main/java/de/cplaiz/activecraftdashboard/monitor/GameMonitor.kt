@@ -10,7 +10,7 @@ import io.ktor.server.routing.*
 import org.bukkit.Bukkit
 import java.util.*
 
-object GameMonitor : RoutedMonitor("/game") {
+object GameMonitor : Routed("/game") {
 
     override fun Route.handleReq() {
         get("/profile/{name}") {
