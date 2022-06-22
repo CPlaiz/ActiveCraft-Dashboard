@@ -1,5 +1,6 @@
 package de.cplaiz.activecraftdashboard.api
 
+import de.cplaiz.activecraftdashboard.discord.DiscordSettings
 import de.cplaiz.activecraftdashboard.monitor.ConsoleMonitor
 import de.cplaiz.activecraftdashboard.monitor.GameMonitor
 import de.cplaiz.activecraftdashboard.monitor.HardwareMonitor
@@ -11,5 +12,6 @@ fun Application.configureRouting() {
         HardwareMonitor.route(this)
         GameMonitor.route(this)
         ConsoleMonitor.route(this)
+        DiscordSettings.route(this)
     }
 }
