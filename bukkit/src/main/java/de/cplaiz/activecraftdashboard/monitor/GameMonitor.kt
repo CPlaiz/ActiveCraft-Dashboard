@@ -2,6 +2,8 @@ package de.cplaiz.activecraftdashboard.monitor
 
 import de.cplaiz.activecraftcore.ActiveCraftCore
 import de.cplaiz.activecraftcore.playermanagement.Profile
+import de.cplaiz.activecraftdashboard.api.Routed
+import de.cplaiz.activecraftdashboard.profilemanagement.PlayerManager
 import de.cplaiz.activecraftdashboard.util.toJson
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -13,14 +15,7 @@ import java.util.*
 object GameMonitor : Routed("/game") {
 
     override fun Route.handleReq() {
-        get("/profile/{name}") {
-            val profile = Profile.of(call.parameters["name"])
-            if (profile == null) {
-                call.respond(HttpStatusCode.NotFound)
-            } else {
-                call.respondText(profile.toJson(), ContentType.Application.Json)
-            }
-        }
+        PlayerManager.route(this)
         get("/profiles") {
             call.respondText("[${getProfiles().map { it.value.name }.joinToString { it }}]", ContentType.Application.Json)
         }
