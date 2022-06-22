@@ -4,6 +4,7 @@ main: de.cplaiz.activecraftdashboard.ActiveCraftDashboard
 api-version: 1.17
 authors: [ CPlaiz ]
 depend: [ ActiveCraft-Core ]
+softdepend: [ ActiveCraft-Discord ]
 description: An elegant way to manage your server remotely.
 libraries:
   - io.ktor:ktor-server-netty-jvm:2.0.2
