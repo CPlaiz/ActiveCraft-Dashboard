@@ -6,6 +6,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.lang.management.ManagementFactory
+import kotlin.math.pow
 
 object HardwareMonitor : Routed("/monitor") {
 
@@ -14,7 +15,7 @@ object HardwareMonitor : Routed("/monitor") {
             call.respondText(getProcessCpuLoad().toString())
         }
         get("/memory") {
-            call.respondText("OK")
+            call.respondText(getRam().toString())
         }
     }
 
@@ -22,5 +23,14 @@ object HardwareMonitor : Routed("/monitor") {
         return ManagementFactory.getPlatformMXBean(
             OperatingSystemMXBean::class.java
         ).cpuLoad
+    }
+
+    fun getRam() : List<Long>{
+        val runtime = Runtime.getRuntime()
+        val divisor = 32.0.pow(4.0)
+        val used: Long = ((runtime.totalMemory() - runtime.freeMemory()).toDouble() / divisor).toLong()
+        val max: Long = (runtime.totalMemory().toDouble() / divisor).toLong()
+        val free: Long = (runtime.freeMemory().toDouble() / divisor).toLong()
+        return listOf(used, free, max)
     }
 }
