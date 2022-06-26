@@ -151,6 +151,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/Server/plugins/ActiveCraft-Core.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>de.cplaiz</groupId>
+            <artifactId>activecraftdiscord</artifactId>
+            <version>1.1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/Server/plugins/ActiveCraft-Discord.jar</systemPath>
+        </dependency>
 
         <!-- ktor -->
         <dependency>
