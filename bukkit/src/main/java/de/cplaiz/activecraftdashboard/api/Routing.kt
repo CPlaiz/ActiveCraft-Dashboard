@@ -1,5 +1,6 @@
 package de.cplaiz.activecraftdashboard.api
 
+import de.cplaiz.activecraftcore.ActiveCraftPlugin
 import de.cplaiz.activecraftdashboard.discord.DiscordSettings
 import de.cplaiz.activecraftdashboard.monitor.ConsoleMonitor
 import de.cplaiz.activecraftdashboard.monitor.GameMonitor
@@ -12,6 +13,8 @@ fun Application.configureRouting() {
         HardwareMonitor.route(this)
         GameMonitor.route(this)
         ConsoleMonitor.route(this)
-        DiscordSettings.route(this)
+        if (ActiveCraftPlugin.isDependancyPresent("ActiveCraft-Discord")) {
+            DiscordSettings.route(this)
+        }
     }
 }
