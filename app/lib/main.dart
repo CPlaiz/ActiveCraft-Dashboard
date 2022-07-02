@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
+  // TODO: download and upgrade to flutter 3.0.3 / dart 2.17.5
   runApp(const MyApp());
 }
 
