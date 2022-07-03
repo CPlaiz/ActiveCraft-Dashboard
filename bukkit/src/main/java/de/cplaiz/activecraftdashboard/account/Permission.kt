@@ -1,6 +1,6 @@
 package de.cplaiz.activecraftdashboard.account
 
-enum class Permissions(val permId: String) {
+enum class Permission(val permId: String) {
 
     ADMIN("0"),
     SEE_PROFILE("1"),
@@ -23,7 +23,15 @@ enum class Permissions(val permId: String) {
     SEE_PERMISSIONS("15"),
     EDIT_PERMISSIONS("16"),
     MANAGE_WORLDS("17"),
-    MANAGE_SERVER("18"),
+    MANAGE_SERVER("18");
 
+    companion object {
+        fun fromString(s: String) : MutableSet<Permission> {
+            return s.split(";").map { Permission.valueOf(it) }.toMutableSet()
+        }
 
+        fun toString(s: Set<Permission>) : String {
+            return s.joinToString(";") { it.permId }
+        }
+    }
 }
