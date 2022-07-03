@@ -1,0 +1,16 @@
+
+active-language: en
+
+en:
+  language-name: "English"
+  command:
+    register-device:
+      code-generated: "Your code: %code% \n Expires in: %expires%s \n To register your device paste this code in the \"Access Code\" field in the ActiveCraft-Dashboard app."
+      code-expired: "Your code \"%code%\" has expired."
+
+de:
+  language-name: "Deutsch"
+  command:
+    register-device:
+      code-generated: "Dein Code: %code% \n Läuft ab in: %expires%s \n Um dein Gerät zu registrieren füge den Code in das \"Access Code\" Feld in der ActiveCraft-Dashboard App ein."
+      code-expired: "Dein Code \"%code%\" ist abgelaufen."

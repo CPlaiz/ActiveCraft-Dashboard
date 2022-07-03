@@ -18,6 +18,8 @@ class MainConfig : ActiveCraftConfig(FileConfig("config.yml", ActiveCraftDashboa
         private set
     var useHttps: Boolean = false
         private set
+    var accessCodeExpiration = 0
+        private set
 
     override fun load() {
         port = fileConfig.getInt("port")
@@ -26,5 +28,6 @@ class MainConfig : ActiveCraftConfig(FileConfig("config.yml", ActiveCraftDashboa
         certPath = fileConfig.getString("certificate-path") ?: "cert.jks"
         certAlias = fileConfig.getString("certificate-alias") ?: "certificate"
         useHttps = fileConfig.getBoolean("use-https")
+        accessCodeExpiration = fileConfig.getInt("access-code-expiration")
     }
 }

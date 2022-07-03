@@ -17,3 +17,6 @@ commands:
   restart-http-server:
     description: Restart the HTTP server
     permission: activecraft.dashboard.httpserver.restart
+  register-device:
+    description: Register a device
+    permission: activecraft.dashboard.device.register

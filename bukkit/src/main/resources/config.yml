@@ -24,3 +24,4 @@ host: localhost # if the server is behind NAT (e.g. a router) set this to the lo
 certificate-path: cert.jks # path to the certificate file relative to the plugin folder ("plugins/ActiveCraft-Dashboard")
 certificate-password: password # the password you entered in step 12
 certificate-alias: certificate # the name you entered in step 11
+access-code-expiration: 60 # in seconds
