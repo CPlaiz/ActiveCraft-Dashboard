@@ -1,35 +1,20 @@
 package de.cplaiz.activecraftdashboard.sql
 
+import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
+import de.cplaiz.activecraftdashboard.account.Accounts
+import de.cplaiz.activecraftdashboard.account.device.Devices
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
+
 class SQLManager {
 
-    /*fun init() {
+    fun init() {
         // connect to sqlite database
-        Database.connect("jdbc:sqlite:activecraft.db")
-
+        Database.connect("jdbc:sqlite:${ActiveCraftDashboard.instance.dataFolder}/activecraft.db")
         transaction {
-            addLogger(StdOutSqlLogger)
-            SchemaUtils.create(Account)
-
-            Account.insert {
-                it[name] = "admin"
-                it[password] = "admin"
-            }
+            SchemaUtils.create(Accounts, Devices)
         }
     }
-
-    fun getAccount(name: String, password: String): Account? {
-        return transaction {
-            Account.select { Account.name eq name and Account.password eq password }.firstOrNull()
-        }
-    }
-
-    fun createAccount(name: String, password: String) {
-        transaction {
-            Account.insert {
-                it[name] = "admin"
-                it[password] = "admin"
-            }
-        }
-    }*/
 
 }

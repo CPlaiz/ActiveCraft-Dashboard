@@ -23,8 +23,11 @@ class ActiveCraftDashboard() : ActiveCraftPlugin() {
     override fun onPluginEnabled() {
         checkForUpdate()
         servMan = ServerManager()
-        servMan!!.startServer()
-        Bukkit.getConsoleSender()
+        servMan.startServer()
+        sqlMan = SQLManager()
+        sqlMan.init()
+        deviceMan = DeviceManager()
+        accounts = Accounts.loadAccounts().associateBy { it.profile }.toMutableMap()
     }
 
     override fun onPluginDisabled() {

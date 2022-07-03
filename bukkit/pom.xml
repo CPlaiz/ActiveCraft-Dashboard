@@ -18,6 +18,7 @@
         <kotlin.version>1.5.32</kotlin.version>
         <ktor_version>2.0.2</ktor_version>
         <logback_version>1.2.3</logback_version>
+        <exposed_version>0.38.2</exposed_version>
     </properties>
 
     <build>
@@ -201,17 +202,17 @@
         <dependency>
             <groupId>org.jetbrains.exposed</groupId>
             <artifactId>exposed-core</artifactId>
-            <version>0.38.2</version>
+            <version>${exposed_version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.exposed</groupId>
             <artifactId>exposed-dao</artifactId>
-            <version>0.38.2</version>
+            <version>${exposed_version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.exposed</groupId>
             <artifactId>exposed-jdbc</artifactId>
-            <version>0.38.2</version>
+            <version>${exposed_version}</version>
         </dependency>
     </dependencies>
 </project>
