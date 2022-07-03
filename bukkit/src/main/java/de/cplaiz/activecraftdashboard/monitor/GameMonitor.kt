@@ -4,7 +4,6 @@ import de.cplaiz.activecraftcore.ActiveCraftCore
 import de.cplaiz.activecraftcore.playermanagement.Profile
 import de.cplaiz.activecraftdashboard.api.Routed
 import de.cplaiz.activecraftdashboard.profilemanagement.PlayerManager
-import de.cplaiz.activecraftdashboard.util.toJson
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
