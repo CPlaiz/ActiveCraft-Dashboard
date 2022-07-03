@@ -50,6 +50,6 @@ class ActiveCraftDashboard() : ActiveCraftPlugin() {
     }
 
     override fun register() {
-
+        pluginManager.addCommands(RegistrationCodeCommand(this), RestartHTTPServerCommand(this))
     }
 }
