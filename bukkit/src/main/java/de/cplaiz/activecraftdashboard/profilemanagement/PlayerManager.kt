@@ -44,20 +44,41 @@ object PlayerManager : Routed("/profile") {
                         }
                         "prefix" -> profile.prefix = formParameters["value"]
                         "mute" -> {
-                            Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable {
-                                if (formParameters["value"].toBoolean()) MuteManager.mutePlayer(profile) else MuteManager.unmutePlayer(
-                                    profile
-                                )
-                            })
+                            Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable { MuteManager.mutePlayer(profile) })
                         }
+                        "unmute" -> Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable { MuteManager.unmutePlayer(profile) })
                         "ban" -> BanManager.Name.ban(
                             profile.name,
                             formParameters["reason"],
                             null, // TODO: 25.06.2022 implement settable date
                             "a mod" // TODO: 25.06.2022 put executing acdashboard profile name here
                         )
-                        "unban" -> Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable { BanManager.Name.unban(profile.name) })
-                        "warn" -> TODO("warn")
+                        "unban" -> Bukkit.getScheduler()
+                            .runTask(ActiveCraftDashboard.instance, Runnable { BanManager.Name.unban(profile.name) })
+                        "ipban" -> BanManager.IP.ban(
+                            profile.player,
+                            formParameters["reason"],
+                            null, // TODO: 25.06.2022 implement settable date
+                            "a mod" // TODO: 25.06.2022 put executing acdashboard profile name here
+                        )
+                        "ipunban" -> Bukkit.getScheduler()
+                            .runTask(ActiveCraftDashboard.instance, Runnable { BanManager.IP.unban(profile.player) })
+                        "warn" -> {
+                            val warnManager = profile.warnManager
+                            when (formParameters["mode"]) {
+                                "add" -> if (formParameters["source"] == null) warnManager.add(formParameters["reason"]) else warnManager.add(
+                                    formParameters["source"],
+                                    formParameters["reason"]
+                                )
+                                "remove" -> warnManager.remove(
+                                    warnManager.getWarnById(
+                                        formParameters["id"] ?: formParameters["reason"]
+                                    )
+                                )
+                                "get" -> warnManager.getWarnById(formParameters["id"] ?: formParameters["reason"])
+                            }
+                        }
+
                     }
                 } catch (e: OperationFailureException) {
                     call.respond(e.message.toString())
