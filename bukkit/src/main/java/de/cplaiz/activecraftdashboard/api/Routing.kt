@@ -37,14 +37,32 @@ fun Route.getAuthorized(path: String, permissions: List<Permission>, body: Pipel
     }
 }
 
+fun Route.getAuthorized(path: String, vararg permissions: Permission, body: PipelineInterceptor<Unit, ApplicationCall>): Route {
+    return getAuthorized(path, permissions.toList(), body)
+}
+
+fun Route.postAuthorized(path: String, body: PipelineInterceptor<Unit, ApplicationCall>): Route {
+    return postAuthorized(path, listOf(), body)
+}
+
+fun Route.postAuthorized(path: String, permissions: List<Permission>, body: PipelineInterceptor<Unit, ApplicationCall>): Route {
+    return post(path) { unit ->
+        if (callAuthorized(call, permissions)) body(unit) else call.respond(HttpStatusCode.Unauthorized)
+    }
+}
+
+fun Route.postAuthorized(path: String, vararg permissions: Permission, body: PipelineInterceptor<Unit, ApplicationCall>): Route {
+    return postAuthorized(path, permissions.toList(), body)
+}
+
 fun callAuthorized(call: ApplicationCall): Boolean {
     return callAuthorized(call, listOf())
 }
 
-fun callAuthorized(call: ApplicationCall, requiredPermissions: List<Permission>): Boolean {
-    if (!callAuthorized(call)) return false
-    val deviceId = call.request.cookies["activecraft_dashboard_device_id"] ?: return false
-    val token = call.request.cookies["activecraft_dashboard_token"] ?: return false
+fun callAuthorized(call: ApplicationCall, requiredPermissions: Collection<Permission>): Boolean {
+    val cookies = call.request.cookies.rawCookies
+    val deviceId = cookies["activecraft_dashboard_device_id"] ?: return false
+    val token = cookies["activecraft_dashboard_token"] ?: return false
     val device = Device.of(deviceId) ?: return false
     if (device.token != token.hash()) return false
     return requiredPermissions.isEmpty() || device.account.hasPermissions(requiredPermissions)

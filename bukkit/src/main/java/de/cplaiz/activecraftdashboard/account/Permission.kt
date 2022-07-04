@@ -20,5 +20,15 @@ enum class Permission {
     SEE_PERMISSIONS,
     EDIT_PERMISSIONS,
     MANAGE_WORLDS,
-    MANAGE_SERVER
+    MANAGE_SERVER;
+
+    companion object {
+        fun fromString(s: String): MutableSet<Permission> {
+            return s.split(",").map { values()[it.toInt()] }.toMutableSet()
+        }
+
+        fun toString(permissions: Set<Permission>): String {
+            return permissions.map { it.ordinal }.joinToString(",")
+        }
+    }
 }

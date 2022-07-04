@@ -19,7 +19,7 @@ object Accounts : Table("accounts") {
     @kotlin.jvm.Throws(InvalidPlayerException::class)
     fun toAccount(row: ResultRow): Account {
         val profile = Profile.of(row[uuid]) ?: throw InvalidPlayerException("No player with the uuid \"${row[uuid]}\" could be found.", row[uuid].toString())
-        return Account(profile)
+        return Account(profile, Permission.fromString(row[permissions]))
     }
 
     fun loadAccounts(): List<Account> {
@@ -50,3 +50,4 @@ object Accounts : Table("accounts") {
         return loadAccount(uuid)
     }
 }
+

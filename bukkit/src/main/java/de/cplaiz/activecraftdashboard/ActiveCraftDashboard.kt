@@ -35,8 +35,8 @@ class ActiveCraftDashboard() : ActiveCraftPlugin() {
         servMan.startServer()
         sqlMan = SQLManager()
         sqlMan.init()
-        deviceMan = DeviceManager()
         accounts = Accounts.loadAccounts().associateBy { it.profile }.toMutableMap()
+        deviceMan = DeviceManager()
     }
 
     override fun onPluginDisabled() {

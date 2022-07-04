@@ -5,10 +5,11 @@ import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
 import de.cplaiz.activecraftdashboard.account.device.Device
 import java.util.*
 
-class Account(val profile: Profile) {
+class Account(val profile: Profile, permissions: Set<Permission>) {
 
-    val permissions: MutableSet<Permission> = mutableSetOf()
-    val devices: MutableSet<Device> = mutableSetOf()
+    val permissions: MutableSet<Permission> = permissions.toMutableSet()
+
+    constructor(profile: Profile, vararg permissions: Permission): this(profile, permissions.toSet())
 
     companion object {
         fun of(profile: Profile): Account? {
@@ -40,8 +41,12 @@ class Account(val profile: Profile) {
         return this.permissions.containsAll(permissions.toList())
     }
 
-    fun hasPermissions(permissions: List<Permission>): Boolean {
+    fun hasPermissions(permissions: Collection<Permission>): Boolean {
         return this.permissions.containsAll(permissions)
+    }
+
+    fun getDevices(): List<Device> {
+        return ActiveCraftDashboard.instance.deviceMan.devices.filter { it.account == this }
     }
 
     fun Profile.getAccount() = of(this)

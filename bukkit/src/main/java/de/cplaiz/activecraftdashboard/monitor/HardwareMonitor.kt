@@ -1,7 +1,9 @@
 package de.cplaiz.activecraftdashboard.monitor
 
 import com.sun.management.OperatingSystemMXBean
+import de.cplaiz.activecraftdashboard.account.Permission
 import de.cplaiz.activecraftdashboard.api.Routed
+import de.cplaiz.activecraftdashboard.api.getAuthorized
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -15,7 +17,7 @@ object HardwareMonitor : Routed("/monitor") {
     private const val BYTE_TO_MB = 1048576
 
     override fun Route.handleReq() {
-        get("/cpu") {
+        getAuthorized("/cpu", Permission.SEE_HARDWARE) {
             call.respondText(getProcessCpuLoad().toString())
         }
         get("/memory") {
