@@ -23,8 +23,8 @@ object AccountRouting : Routed("/account") {
                     Platform.values()[formParameters["platform"].toString().toInt()]
                 )
                 deviceMan.activeRegistrationCodes.remove(accessCode)
-                call.response.cookies.append("device-id", device.id)
-                call.response.cookies.append("token", device.token)
+                call.response.cookies.append("activecraft_dashboard_device_id", device.id)
+                call.response.cookies.append("activecraft_dashboard_token", device.token)
                 call.respond(HttpStatusCode.OK, "Device registration successful")
             } else {
                 call.respond(HttpStatusCode.Unauthorized, "Invalid access code")
