@@ -12,7 +12,7 @@ import java.lang.management.ManagementFactory
 import java.nio.file.Files
 import javax.swing.filechooser.FileSystemView
 
-object HardwareMonitor : Routed("/monitor") {
+object HardwareMonitor : Routed("/hardware") {
 
     private const val BYTE_TO_MB = 1048576
 
