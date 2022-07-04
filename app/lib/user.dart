@@ -2,9 +2,9 @@ import 'package:app/permission.dart';
 
 class User {
 
-  User(this.name, this.uuid, this.nickname, this.permissions);
+  User(this.name, this.deviceId, this.nickname, this.permissions);
 
-  final String uuid;
+  final String deviceId;
   final String name;
   final String nickname;
   final List<Permission> permissions;
