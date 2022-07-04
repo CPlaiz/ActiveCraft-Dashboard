@@ -44,7 +44,7 @@ object Accounts : Table("accounts") {
         transaction {
             Accounts.insert {
                 it[Accounts.uuid] = uuid
-                it[Accounts.permissions] = permissions.joinToString(",") { permission -> permission.permId }
+                it[Accounts.permissions] = permissions.joinToString(",") { permission -> permission.ordinal.toString() }
             }
         }
         return loadAccount(uuid)

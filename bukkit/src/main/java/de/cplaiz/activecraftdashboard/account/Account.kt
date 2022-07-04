@@ -36,5 +36,13 @@ class Account(val profile: Profile) {
         return permissions.contains(permission)
     }
 
+    fun hasPermissions(vararg permissions: Permission): Boolean {
+        return this.permissions.containsAll(permissions.toList())
+    }
+
+    fun hasPermissions(permissions: List<Permission>): Boolean {
+        return this.permissions.containsAll(permissions)
+    }
+
     fun Profile.getAccount() = of(this)
 }
