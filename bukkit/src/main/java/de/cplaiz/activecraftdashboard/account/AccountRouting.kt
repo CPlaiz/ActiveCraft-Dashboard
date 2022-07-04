@@ -17,14 +17,16 @@ object AccountRouting : Routed("/account") {
             println("Registering device with access code $accessCode")
             val deviceMan = ActiveCraftDashboard.instance.deviceMan
             if (deviceMan.activeRegistrationCodes.contains(accessCode)) {
-                val device = deviceMan.registerDevice(
+                val tokenDevicePair = deviceMan.registerDevice(
                     deviceMan.activeRegistrationCodes[accessCode]!!,
                     formParameters["device-name"].toString(),
                     Platform.values()[formParameters["platform"].toString().toInt()]
                 )
+                val token = tokenDevicePair.first
+                val device = tokenDevicePair.second
                 deviceMan.activeRegistrationCodes.remove(accessCode)
                 call.response.cookies.append("activecraft_dashboard_device_id", device.id)
-                call.response.cookies.append("activecraft_dashboard_token", device.token)
+                call.response.cookies.append("activecraft_dashboard_token", token)
                 call.respond(HttpStatusCode.OK, "Device registration successful")
             } else {
                 call.respond(HttpStatusCode.Unauthorized, "Invalid access code")

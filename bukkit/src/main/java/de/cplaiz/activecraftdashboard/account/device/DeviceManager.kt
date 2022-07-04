@@ -11,7 +11,7 @@ import org.bukkit.Bukkit
 
 class DeviceManager {
 
-    val devices = mutableSetOf<Device>()
+    val devices: MutableSet<Device> = Devices.loadDevices().toMutableSet()
     val activeRegistrationCodes = mutableMapOf<String, Account>()
 
     fun createDeviceId(): String {
@@ -46,11 +46,12 @@ class DeviceManager {
         return token
     }
 
-    fun registerDevice(account: Account, name: String, platform: Platform): Device {
-        val device = Device(account, createDeviceId(), name, platform, generateAuthToken())
+    fun registerDevice(account: Account, name: String, platform: Platform): Pair<String, Device> {
+        val token = generateAuthToken()
+        val device = Device(account, createDeviceId(), name, platform, token.hash())
         devices.add(device)
         Devices.saveDevice(device)
-        return device
+        return token to device
     }
 
     fun removeDevice(id: String) {
