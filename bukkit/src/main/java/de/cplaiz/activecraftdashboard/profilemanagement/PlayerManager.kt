@@ -43,26 +43,26 @@ object PlayerManager : Routed("/profile") {
                                 profile.updateDisplayname()
                         }
                         "prefix" -> profile.prefix = formParameters["value"]
-                        "mute" -> {
-                            Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable { MuteManager.mutePlayer(profile) })
-                        }
-                        "unmute" -> Bukkit.getScheduler().runTask(ActiveCraftDashboard.instance, Runnable { MuteManager.unmutePlayer(profile) })
+                        "mute" -> ActiveCraftDashboard.runTask { MuteManager.mutePlayer(profile) }
+                        "unmute" -> ActiveCraftDashboard.runTask { MuteManager.unmutePlayer(profile) }
+                        "forcemute" -> ActiveCraftDashboard.runTask { profile.set("forcemuted", true) }
+                        "forceunmute" -> ActiveCraftDashboard.runTask { profile.set("forcemuted", false) }
                         "ban" -> BanManager.Name.ban(
                             profile.name,
                             formParameters["reason"],
                             null, // TODO: 25.06.2022 implement settable date
                             "a mod" // TODO: 25.06.2022 put executing acdashboard profile name here
                         )
-                        "unban" -> Bukkit.getScheduler()
-                            .runTask(ActiveCraftDashboard.instance, Runnable { BanManager.Name.unban(profile.name) })
-                        "ipban" -> BanManager.IP.ban(
-                            profile.player,
-                            formParameters["reason"],
-                            null, // TODO: 25.06.2022 implement settable date
-                            "a mod" // TODO: 25.06.2022 put executing acdashboard profile name here
-                        )
-                        "ipunban" -> Bukkit.getScheduler()
-                            .runTask(ActiveCraftDashboard.instance, Runnable { BanManager.IP.unban(profile.player) })
+                        "unban" -> ActiveCraftDashboard.runTask { BanManager.Name.unban(profile.name) }
+                        "banip" -> ActiveCraftDashboard.runTask {
+                            BanManager.IP.ban(
+                                profile.player,
+                                formParameters["reason"],
+                                null, // TODO: 25.06.2022 implement settable date
+                                "a mod" // TODO: 25.06.2022 put executing acdashboard profile name here
+                            )
+                        }
+                        "unbanip" -> ActiveCraftDashboard.runTask { BanManager.IP.unban(profile.player) }
                         "warn" -> {
                             val warnManager = profile.warnManager
                             when (formParameters["mode"]) {
