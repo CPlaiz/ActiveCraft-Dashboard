@@ -75,10 +75,26 @@ object PlayerManager : Routed("/profile") {
                                         formParameters["id"] ?: formParameters["reason"]
                                     )
                                 )
-                                "get" -> warnManager.getWarnById(formParameters["id"] ?: formParameters["reason"])
                             }
                         }
-
+                        "kick" -> {
+                            ActiveCraftDashboard.runTask {
+                                val player = profile.player ?: throw RequestException()
+                                profile.player.kickPlayer(formParameters["reason"])
+                            }
+                        }
+                        "teleport" -> {
+                            val world = Bukkit.getWorld(formParameters["world"] ?: return@post) ?: throw RequestException(HttpStatusCode.BadRequest)
+                            val x = (formParameters["x"] ?: throw RequestException()).toDouble()
+                            val y = (formParameters["y"] ?: throw RequestException()).toDouble()
+                            val z = (formParameters["z"] ?: throw RequestException()).toDouble()
+                            val location = Location(world, x, y, z)
+                            ActiveCraftDashboard.runTask {
+                                val player = profile.player ?: throw RequestException(HttpStatusCode.BadRequest)
+                                player.teleport(location)
+                            }
+                        }
+                        else -> call.respond(HttpStatusCode.BadRequest)
                     }
                 } catch (e: OperationFailureException) {
                     call.respond(e.message.toString())
