@@ -5,6 +5,7 @@ import de.cplaiz.activecraftcore.manager.BanManager
 import de.cplaiz.activecraftcore.manager.MuteManager
 import de.cplaiz.activecraftcore.playermanagement.Profile
 import de.cplaiz.activecraftdashboard.ActiveCraftDashboard
+import de.cplaiz.activecraftdashboard.api.RequestException
 import de.cplaiz.activecraftdashboard.api.Routed
 import de.cplaiz.activecraftdashboard.util.toJson
 import io.ktor.http.*
@@ -13,6 +14,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.bukkit.Bukkit
+import org.bukkit.Location
 
 object PlayerManager : Routed("/profile") {
 
@@ -30,7 +32,7 @@ object PlayerManager : Routed("/profile") {
                 val profile = Profile.of(call.parameters["name"])
                 if (profile == null) {
                     call.respond(HttpStatusCode.BadRequest)
-                    return@post
+                    throw RequestException(HttpStatusCode.BadRequest)
                 }
                 val action = call.parameters["action"]
                 val formParameters = call.receiveParameters()
@@ -98,6 +100,9 @@ object PlayerManager : Routed("/profile") {
                     }
                 } catch (e: OperationFailureException) {
                     call.respond(e.message.toString())
+                    return@post
+                } catch (e: RequestException) {
+                    call.respond(e.httpStatusCode, e.message)
                     return@post
                 }
                 call.respond(HttpStatusCode.OK)
