@@ -8,7 +8,7 @@ import de.cplaiz.activecraftdashboard.discord.DiscordSettings
 import de.cplaiz.activecraftdashboard.monitor.ConsoleMonitor
 import de.cplaiz.activecraftdashboard.monitor.GameMonitor
 import de.cplaiz.activecraftdashboard.monitor.HardwareMonitor
-import de.cplaiz.activecraftdashboard.util.hash
+import de.cplaiz.activecraftdashboard.util.hashSHA256
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -64,6 +64,6 @@ fun callAuthorized(call: ApplicationCall, requiredPermissions: Collection<Permis
     val deviceId = cookies["activecraft_dashboard_device_id"] ?: return false
     val token = cookies["activecraft_dashboard_token"] ?: return false
     val device = Device.of(deviceId) ?: return false
-    if (device.token != token.hash()) return false
+    if (device.token != token.hashSHA256()) return false
     return requiredPermissions.isEmpty() || device.account.hasPermissions(requiredPermissions)
 }

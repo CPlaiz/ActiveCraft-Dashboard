@@ -6,7 +6,7 @@ import de.cplaiz.activecraftdashboard.account.Account
 import de.cplaiz.activecraftdashboard.util.SecurityUtils
 import de.cplaiz.activecraftdashboard.util.createHexCode
 import de.cplaiz.activecraftdashboard.util.genRandString
-import de.cplaiz.activecraftdashboard.util.hash
+import de.cplaiz.activecraftdashboard.util.hashSHA256
 import org.bukkit.Bukkit
 
 class DeviceManager {
@@ -40,7 +40,7 @@ class DeviceManager {
 
     fun generateAuthToken(): String {
         var token = SecurityUtils.genToken(96)
-        while (devices.map { it.token }.contains(token.hash())) {
+        while (devices.map { it.token }.contains(token.hashSHA256())) {
             token = SecurityUtils.genToken(96)
         }
         return token
@@ -48,7 +48,7 @@ class DeviceManager {
 
     fun registerDevice(account: Account, name: String, platform: Platform): Pair<String, Device> {
         val token = generateAuthToken()
-        val device = Device(account, createDeviceId(), name, platform, token.hash())
+        val device = Device(account, createDeviceId(), name, platform, token.hashSHA256())
         devices.add(device)
         Devices.saveDevice(device)
         return token to device

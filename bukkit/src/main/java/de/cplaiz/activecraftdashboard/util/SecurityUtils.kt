@@ -4,7 +4,7 @@ import java.security.MessageDigest
 import java.security.SecureRandom
 import java.util.*
 
-fun String.hash(): String {
+fun String.hashSHA256(): String {
     val bytes = this.toByteArray()
     val md = MessageDigest.getInstance("SHA-256")
     val digest = md.digest(bytes)
