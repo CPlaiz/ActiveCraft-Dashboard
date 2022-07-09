@@ -1,7 +1,8 @@
+import 'package:activecraft_dashboard/account.dart';
+import 'package:activecraft_dashboard/server.dart';
 import 'package:flutter/material.dart';
 
 enum Permission {
-
   ADMIN,
   SEE_PROFILE,
   EDIT_PROFILE,
@@ -23,36 +24,49 @@ enum Permission {
   MANAGE_SERVER
 }
 
-abstract class PermittableWidget extends StatefulWidget {
+class Permittable extends StatefulWidget {
+  final List<Permission> permissions;
+  final Widget child;
+  final Account account;
 
-  final Permission permission;
-  bool shown = false;
-
-  PermittableWidget(this.permission) {
-
+  void update() {
+    state.update();
   }
 
-  @override
-  State<StatefulWidget> createState() => PermittableWidgetState();
+  Permittable(
+      {
+      required this.child,
+      required this.account,
+        required this.permissions,
+      Key? key})
+      : super(key: key);
 
+  Permittable.fromServer(permissions, child, Server server, {Key? key})
+      : this(
+            permissions: permissions,
+            child: child,
+            account: server.account,
+            key: key);
+
+
+  final PermittableState state = PermittableState();
+
+  @override
+  State<StatefulWidget> createState() => state;
 }
 
-class PermittableWidgetState extends State<PermittableWidget> {
+class PermittableState extends State<Permittable> {
+  late bool shown;
 
-    //bool get canAccess => ActiveCraftDashboard.accounts.;
-
-    Permission get permission => widget.permission;
-
-    PermittableWidgetState();
-
-    PermittableWidgetState.from(PermittableWidget widget) {
-
-    }
+  void update() {
+    setState(() {
+      shown = widget.account.permissions.containsAll(widget.permissions);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    throw UnimplementedError();
+    update();
+    return Visibility(child: widget.child, visible: shown);
   }
-
 }
