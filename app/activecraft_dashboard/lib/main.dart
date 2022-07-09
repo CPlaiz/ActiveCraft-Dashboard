@@ -1,4 +1,5 @@
 import 'package:activecraft_dashboard/account.dart';
+import 'package:activecraft_dashboard/permission.dart';
 import 'package:activecraft_dashboard/server.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,19 +9,20 @@ void main() async {
   ActiveCraftDashboard.instance = ActiveCraftDashboard();
   ActiveCraftDashboard.prefs = await SharedPreferences.getInstance();
   ActiveCraftDashboard.instance.startApp();
-  ActiveCraftDashboard.prefs.setString("test", "pepega");
 }
 
 class ActiveCraftDashboard {
   static late ActiveCraftDashboard instance;
   static late SharedPreferences prefs;
-  Map<Server, Account> accounts = loadAccounts();
+  late Map<Server, Account> accounts;
 
   startApp() {
+    accounts = loadAccounts();
     runApp(const MyApp());
   }
 
   static Map<Server, Account> loadAccounts() {
+    prefs.setStringList("servers", [Server(id: "xyz", ip: "123.456.789.000", port: 69, account: Account(name: "big pp cp", deviceId: "xyz", permissions: {Permission.MANAGE_WORLDS, Permission.SEE_LOGS})).toJson()]);
     return {}; // TODO: implement
   }
 }
@@ -75,6 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Permittable(
+                permissions: const [Permission.ADMIN],
+            account: Account(name: "big pp cp", deviceId: "xyz", nickname: "biggus dickus", permissions: {Permission.MANAGE_WORLDS, Permission.SEE_LOGS}),
+            child: const Text("pepega")),
           ],
         ),
       ),
