@@ -24,6 +24,9 @@ enum class Permission {
 
     companion object {
         fun fromString(s: String): MutableSet<Permission> {
+            if (s.isEmpty()) {
+                return mutableSetOf()
+            }
             return s.split(",").map { values()[it.toInt()] }.toMutableSet()
         }
 

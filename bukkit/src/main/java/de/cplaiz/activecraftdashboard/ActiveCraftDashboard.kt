@@ -11,6 +11,7 @@ import de.cplaiz.activecraftdashboard.command.RegistrationCodeCommand
 import de.cplaiz.activecraftdashboard.command.RestartHTTPServerCommand
 import de.cplaiz.activecraftdashboard.sql.SQLManager
 import de.cplaiz.activecraftdashboard.util.config.MainConfig
+import org.bukkit.Bukkit
 
 class ActiveCraftDashboard() : ActiveCraftPlugin() {
 
@@ -23,6 +24,10 @@ class ActiveCraftDashboard() : ActiveCraftPlugin() {
     companion object {
         lateinit var instance: ActiveCraftDashboard
             private set
+
+        fun runTask(runnable: Runnable) {
+            Bukkit.getScheduler().runTask(instance, runnable)
+        }
     }
 
     init {
